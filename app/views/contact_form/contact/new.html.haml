@@ -1,0 +1,18 @@
+- if methods.include? 'title'
+  - title t("contact_form.form_title")
+- else
+  %h1= t("contact_form.form_title")
+
+= simple_form_for @form, :url => contact_form_path do |f|
+  -if @form.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@form.errors.count, "error")} prohibited this #{@form.class.name.underscore.humanize.downcase} from being saved:"
+      %ul
+        - @form.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.input :email, :label => 'Your Email', :hint => '(optional)'
+  = f.input :message, :as => :text
+  = f.input :nickname, :input_html => {:style => 'display:none;'}, :label_html => {:style => 'display:none'}
+
+  = f.submit 'Submit'
