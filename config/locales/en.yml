@@ -1,0 +1,9 @@
+en:
+  contact_form:
+    form_title: "Send An Email"
+    headers:
+      subject: "Message From aRailsDemo User"
+      to: 'arailsdemo@example.com'
+      from: 'Anonymous'
+    success: "Thanks for the message!"
+    redirect_url: 'new_contact_form_url'
