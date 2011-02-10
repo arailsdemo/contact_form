@@ -1,3 +1,6 @@
+require 'haml-rails'
+require 'simple_form'
+
 module ContactForm
   class ContactController < ApplicationController
     def new
