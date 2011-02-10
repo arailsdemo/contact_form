@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("simple_form", [">= 1.3.0"])
   s.add_runtime_dependency("haml-rails", [">= 0.3.4"])
 
-  s.add_development_dependency("rspec-rails", [">= 2.4.1"])
+  s.add_development_dependency("rspec-rails", ["~> 2.4.1"])
   s.add_development_dependency("capybara", [">= 0.4.0"])
   s.add_development_dependency("launchy", [">= 0.3.7"])
 end
