@@ -1,5 +1,22 @@
 require 'spec_helper'
 
+# calling these methods will affect all subsequent tests!!
+def redirect_contact
+  ApplicationController.class_eval do
+    def logged_in?
+      redirect_to 'http://google.com'
+    end
+  end
+end
+
+def set_email
+  ApplicationController.class_eval do
+    def set_email
+      'Cartman'
+    end
+  end
+end
+
 describe "Sending a contact email" do
   context "I'm on the contact page" do
     before { visit new_contact_form_url }
@@ -80,6 +97,24 @@ describe "Sending a contact email" do
             page.should have_content "Message can't be blank"
           end
         end
+      end
+    end
+  end
+
+  context "configuration" do
+    context "ContactForm.form_email" do
+      it "can set the form's email attribute when a new form is displayed" do
+        set_email
+        visit new_contact_form_url
+        page.should have_xpath "//input[@value='Cartman']"
+      end
+    end
+
+    context "ContactForm.before_filter" do
+      it "has access to ApplicationController methods" do
+        redirect_contact
+        visit new_contact_form_url
+        current_url.should == 'http://google.com/'
       end
     end
   end

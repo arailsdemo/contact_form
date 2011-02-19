@@ -2,9 +2,11 @@ require 'haml-rails'
 require 'simple_form'
 
 module ContactForm
-  class ContactController < ApplicationController
+  class ContactController < ::ApplicationController
+    before_filter :_before_filter
+
     def new
-      @form = ContactForm::Form.new
+      @form = ContactForm::Form.new(:email => _email)
       respond_to do |format|
         format.html
         format.js { render :layout => false }
@@ -19,6 +21,16 @@ module ContactForm
       else
         render :new
       end
+    end
+
+    private
+
+    def _before_filter
+      instance_eval &ContactForm.before_filter
+    end
+
+    def _email
+      instance_eval &ContactForm.form_email
     end
   end
 end
